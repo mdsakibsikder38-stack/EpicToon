@@ -1,0 +1,22 @@
+{
+  "series": [
+    {
+      "id": "amar-golpo",
+      "title": "আমার গল্প",
+      "author": "আপনার নাম",
+      "color": ["#5b3df5", "#e0457b"],
+      "about": "গল্পের ছোট বর্ণনা।",
+      "chapters": [
+        {
+          "id": "c1",
+          "title": "Chapter 1",
+          "images": [
+            "amar-golpo/c1/01.webp",
+            "amar-golpo/c1/02.webp",
+            "amar-golpo/c1/03.webp"
+          ]
+        }
+      ]
+    }
+  ]
+}
