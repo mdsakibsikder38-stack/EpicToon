@@ -2,121 +2,116 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>EpicToon – Manhwa Reader</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EpicToon – Read Original Manhwa Online</title>
+<meta name="description" content="EpicToon: read original manhwa and webtoons online for free.">
+<meta name="theme-color" content="#5b3df5">
+<meta property="og:title" content="EpicToon – Read Original Manhwa Online">
+<meta property="og:image" content="logo.png">
+<link rel="icon" href="logo.png">
 <style>
-:root{--bg:#f3f1f7;--surface:#fff;--ink:#1c1b29;--mute:#6b6a7d;--accent:#5b3df5;--line:#dedbe9;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root{--bg:#f3f1f7;--surface:#fff;--ink:#1c1b29;--mute:#6b6a7d;--accent:#5b3df5;--line:#dedbe9}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14131c;--surface:#1e1d29;--ink:#eeedf7;--mute:#9a99ad;--accent:#8f78ff;--line:#2e2c3d}}
 :root[data-theme="dark"]{--bg:#14131c;--surface:#1e1d29;--ink:#eeedf7;--mute:#9a99ad;--accent:#8f78ff;--line:#2e2c3d}
-html{color-scheme:light dark;scroll-padding-top:env(safe-area-inset-top,0px)}
-*{box-sizing:border-box}
+html{color-scheme:light dark}*{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Trebuchet MS",system-ui,sans-serif}
-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--surface);border-bottom:1px solid var(--line)}
-header h1{font-size:1.15rem;margin:0;flex:1;font-family:Georgia,serif}
+header{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 16px;background:var(--surface);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:8px;cursor:pointer;font:700 1.2rem Georgia,serif}
+.logo{height:32px;width:32px;border-radius:8px}
+#q{flex:1;min-width:150px;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit}
 button{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:8px 14px}
-button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
-button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+button.primary,.chip.on{background:var(--accent);border-color:var(--accent);color:#fff}
+button:focus-visible,#q:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 button:disabled{opacity:.4;cursor:default}
-main{max-width:760px;margin:0 auto;padding:16px}
+main{max-width:900px;margin:0 auto;padding:16px;min-height:70vh}
+h2{font-family:Georgia,serif;margin:8px 0}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 16px}.chip{border-radius:99px;padding:4px 12px;font-size:.85rem}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px}
 .card{padding:0;text-align:left;overflow:hidden;border-radius:10px}
-.cover{aspect-ratio:3/4;display:flex;align-items:flex-end;padding:10px;color:#fff;font-family:Georgia,serif;font-size:1.1rem;font-weight:700}
-.card .meta{padding:10px;font-size:.85rem;color:var(--mute)}
-.card b{display:block;color:var(--ink);font-size:.95rem}
-.detail{display:flex;gap:16px;margin-bottom:16px}
-.detail .cover{width:130px;flex:none;border-radius:10px}
+.cover{aspect-ratio:3/4;display:flex;align-items:flex-end;padding:10px;color:#fff;font:700 1.05rem Georgia,serif;text-shadow:0 1px 4px #0008}
+.card .meta{padding:8px 10px;font-size:.82rem;color:var(--mute)}.card b{display:block;color:var(--ink)}
+.detail{display:flex;gap:16px;margin-bottom:16px}.detail .cover{width:140px;flex:none;border-radius:10px}
 .ch{display:flex;justify-content:space-between;align-items:center;width:100%;margin-bottom:8px;text-align:left}
-.ch.read{color:var(--mute)}
-.reader{background:#000;min-height:100vh}
-.page{display:block;width:100%;max-width:760px;margin:0 auto}
-.bar{position:sticky;bottom:0;display:flex;justify-content:space-between;gap:8px;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:var(--surface);border-top:1px solid var(--line)}
-.note{font-size:.85rem;color:var(--mute);margin-top:24px}
-.empty{padding:40px 0;text-align:center;color:var(--mute)}
+.ch.done{color:var(--mute)}.chl{display:flex;align-items:center;gap:12px}.thumb{width:48px;height:64px;object-fit:cover;border-radius:6px}
+.reader{background:#000}.page{display:block;width:100%;max-width:760px;margin:0 auto}
+.bar{position:sticky;bottom:0;display:flex;justify-content:space-between;gap:8px;padding:10px 16px;background:var(--surface);border-top:1px solid var(--line)}
+.empty,.note{color:var(--mute);text-align:center;padding:24px 0}
+footer{text-align:center;padding:20px;color:var(--mute);font-size:.9rem;border-top:1px solid var(--line)}
+footer a{color:var(--accent);cursor:pointer;margin:0 8px}
 </style>
 </head>
 <body>
 <header>
   <button id="back" hidden aria-label="Back">Back</button>
-  <h1 id="title">EpicToon</h1>
+  <div class="brand" data-home><img class="logo" src="logo.png" alt="" onerror="this.remove()"><span>EpicToon</span></div>
+  <input id="q" type="search" placeholder="Search series or author" aria-label="Search">
   <button id="theme" aria-label="Toggle dark mode">Theme</button>
 </header>
 <main id="app"></main>
+<footer id="foot"></footer>
 
 <script>
-/* ---------- CONTENT SOURCE ----------
-   To use your own library, host a content.json file (GitHub Pages is free)
-   and put its address here. Leave empty to use the demo data below.
-   Page images must be files you own or have permission to publish. */
-var CONTENT_URL = "";
+/* ===== SETTINGS: change these ===== */
+var CONTENT_URL = "content.json";
+var CONTACT_EMAIL = "mdsakibsikder38@gmail.com";
+var SUPPORT_URL = "";      /* Ko-fi / Patreon link, optional */
+var ADSENSE_CLIENT = "";   /* later: "ca-pub-XXXXXXXXXXXXXXXX" after Google approves you */
 
-var DEMO = {series:[
- {id:"neon-tide",title:"Neon Tide",author:"Demo Author",color:["#5b3df5","#e0457b"],about:"A courier races across a flooded city after dark. Demo story with generated pages.",
-  chapters:[{id:"c1",title:"Chapter 1",pages:6},{id:"c2",title:"Chapter 2",pages:5},{id:"c3",title:"Chapter 3",pages:7}]},
- {id:"paper-moon",title:"Paper Moon",author:"Demo Author",color:["#0e8a7d","#f2b632"],about:"A lantern maker finds a door in the sky. Demo story with generated pages.",
-  chapters:[{id:"c1",title:"Chapter 1",pages:5},{id:"c2",title:"Chapter 2",pages:6}]}
-]};
-
-var store={get:function(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},
- set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
-
-var data=DEMO, state={view:"library",sid:null,cid:null}, read=store.get("read",{});
-var app=document.getElementById("app"), titleEl=document.getElementById("title"), backBtn=document.getElementById("back");
-
+var store={get:function(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+var data={series:[]},read=store.get("read",{}),q="",genre="All",app=document.getElementById("app");
+function $(i){return document.getElementById(i)}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
-function grad(s){return "background:linear-gradient(160deg,"+s.color[0]+","+s.color[1]+")"}
-function series(id){return data.series.filter(function(s){return s.id===id})[0]}
+function find(id){return data.series.filter(function(s){return s.id===id})[0]}
+function bg(s){if(s.cover)return "background:linear-gradient(0deg,rgba(0,0,0,.6),rgba(0,0,0,0) 55%),url('"+esc(s.cover)+"') center/cover";var c=s.color||["#5b3df5","#e0457b"];return "background:linear-gradient(160deg,"+c[0]+","+c[1]+")"}
+function ad(){return ADSENSE_CLIENT?'<ins class="adsbygoogle" style="display:block;margin:20px 0" data-ad-client="'+ADSENSE_CLIENT+'" data-ad-format="auto" data-full-width-responsive="true"></ins>':""}
+function pushAds(){if(!ADSENSE_CLIENT)return;try{document.querySelectorAll("ins.adsbygoogle:not([data-done])").forEach(function(n){n.dataset.done=1;(window.adsbygoogle=window.adsbygoogle||[]).push({})})}catch(e){}}
+if(ADSENSE_CLIENT){var sc=document.createElement("script");sc.async=1;sc.crossOrigin="anonymous";sc.src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client="+ADSENSE_CLIENT;document.head.appendChild(sc)}
 
-/* Page source: real image URLs if provided, else generated demo panels */
-function pageSrc(s,ch,i){
-  if(ch.images&&ch.images[i]) return ch.images[i];
-  var h=(i*47+s.title.length*31)%360;
-  var svg='<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1200"><rect width="800" height="1200" fill="hsl('+h+',55%,88%)"/><circle cx="'+(200+(i*130)%400)+'" cy="420" r="150" fill="hsl('+((h+40)%360)+',60%,62%)"/><rect x="120" y="720" width="560" height="260" rx="20" fill="hsl('+((h+200)%360)+',45%,35%)"/><text x="400" y="1110" text-anchor="middle" font-family="Georgia" font-size="42" fill="#222">'+s.title+' · '+ch.title+' · p'+(i+1)+'</text></svg>';
-  return "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svg);
+function matches(s){var t=q.toLowerCase();return(genre==="All"||(s.genres||[]).indexOf(genre)>-1)&&(!t||(s.title+" "+s.author).toLowerCase().indexOf(t)>-1)}
+function card(s){var l=s.chapters[s.chapters.length-1];return '<button class="card" data-go="series:'+s.id+'"><div class="cover" style="'+bg(s)+'">'+esc(s.title)+'</div><div class="meta"><b>'+esc(s.author)+'</b>'+(l?esc(l.title):"")+'</div></button>'}
+function gridHtml(){var l=data.series.filter(matches).sort(function(a,b){return(b.updated||"")>(a.updated||"")?1:-1});return l.length?'<div class="grid">'+l.map(card).join("")+'</div>':'<p class="empty">No series found.</p>'}
+function home(){
+  var g=["All"];data.series.forEach(function(s){(s.genres||[]).forEach(function(x){if(g.indexOf(x)<0)g.push(x)})});
+  document.title="EpicToon – Read Original Manhwa Online";
+  app.innerHTML='<h2>Latest updates</h2><div class="chips">'+g.map(function(x){return '<button class="chip'+(x===genre?' on':'')+'" data-g="'+esc(x)+'">'+esc(x)+'</button>'}).join("")+'</div><div id="grid">'+gridHtml()+'</div>'+ad();
 }
-function pageCount(ch){return ch.images?ch.images.length:ch.pages}
-
-function render(){
-  backBtn.hidden=state.view==="library";
-  if(state.view==="library"){
-    titleEl.textContent="EpicToon";
-    var html='<div class="grid">'+data.series.map(function(s){
-      var done=s.chapters.filter(function(c){return read[s.id+"/"+c.id]}).length;
-      return '<button class="card" data-s="'+s.id+'"><div class="cover" style="'+grad(s)+'">'+esc(s.title)+'</div><div class="meta"><b>'+esc(s.author)+'</b>'+done+' / '+s.chapters.length+' read</div></button>';
-    }).join("")+'</div>';
-    html+='<p class="note">'+(CONTENT_URL?'Library loaded from your content.json.':'Showing demo stories. Set CONTENT_URL in the code to load your own library.')+'</p>';
-    app.innerHTML=data.series.length?html:'<div class="empty">No series yet. Add one to your content.json.</div>';
-    app.querySelectorAll(".card").forEach(function(b){b.onclick=function(){state={view:"series",sid:b.dataset.s};render();window.scrollTo(0,0)}});
-  }else if(state.view==="series"){
-    var s=series(state.sid); titleEl.textContent=s.title;
-    var last=store.get("last:"+s.id,null);
-    var h='<div class="detail"><div class="cover" style="'+grad(s)+'">'+esc(s.title)+'</div><div><p>'+esc(s.about)+'</p>'+(last?'<button class="primary" data-c="'+last+'">Continue reading</button>':'<button class="primary" data-c="'+s.chapters[0].id+'">Start reading</button>')+'</div></div>';
-    h+=s.chapters.map(function(c){var r=read[s.id+"/"+c.id];return '<button class="ch'+(r?' read':'')+'" data-c="'+c.id+'"><span>'+esc(c.title)+'</span><span>'+(r?'Read':pageCount(c)+' pages')+'</span></button>'}).join("");
-    app.innerHTML=h;
-    app.querySelectorAll("[data-c]").forEach(function(b){b.onclick=function(){state={view:"reader",sid:s.id,cid:b.dataset.c};render();window.scrollTo(0,0)}});
-  }else{
-    var s2=series(state.sid), idx=s2.chapters.findIndex(function(c){return c.id===state.cid}), ch=s2.chapters[idx];
-    titleEl.textContent=s2.title+" · "+ch.title;
-    store.set("last:"+s2.id,ch.id);
-    var imgs="";for(var i=0;i<pageCount(ch);i++){imgs+='<img class="page" loading="lazy" alt="'+esc(ch.title)+' page '+(i+1)+'" src="'+pageSrc(s2,ch,i)+'">'}
-    app.style.padding="0";app.style.maxWidth="none";
-    app.innerHTML='<div class="reader">'+imgs+'</div><div class="bar"><button id="prev"'+(idx===0?' disabled':'')+'>Previous</button><button id="next" class="primary">'+(idx===s2.chapters.length-1?'Finish':'Next chapter')+'</button></div>';
-    document.getElementById("prev").onclick=function(){state.cid=s2.chapters[idx-1].id;render();window.scrollTo(0,0)};
-    document.getElementById("next").onclick=function(){
-      read[s2.id+"/"+ch.id]=1;store.set("read",read);
-      if(idx<s2.chapters.length-1){state.cid=s2.chapters[idx+1].id}else{state={view:"series",sid:s2.id}}
-      render();window.scrollTo(0,0)};
-    return;
-  }
-  app.style.padding="";app.style.maxWidth="";
+function seriesView(s){
+  document.title=s.title+" – EpicToon";var last=store.get("last:"+s.id,null),first=s.chapters[0];
+  app.innerHTML='<div class="detail"><div class="cover" style="'+bg(s)+'">'+esc(s.title)+'</div><div><h2>'+esc(s.title)+'</h2><p class="note" style="text-align:left;padding:0">'+esc(s.author)+(s.genres?' · '+esc(s.genres.join(", ")):'')+'</p><p>'+esc(s.about||"")+'</p><button class="primary" data-go="read:'+s.id+':'+(last||first.id)+'">'+(last?'Continue reading':'Start reading')+'</button></div></div>'+ad()+
+   s.chapters.slice().reverse().map(function(c){var d=read[s.id+"/"+c.id];return '<button class="ch'+(d?' done':'')+'" data-go="read:'+s.id+':'+c.id+'"><span class="chl">'+(c.thumb?'<img class="thumb" alt="" src="'+esc(c.thumb)+'">':'')+esc(c.title)+'</span><span>'+(d?'Read':(c.images||[]).length+' pages')+'</span></button>'}).join("");
 }
-backBtn.onclick=function(){state=state.view==="reader"?{view:"series",sid:state.sid}:{view:"library"};render();window.scrollTo(0,0)};
-document.getElementById("theme").onclick=function(){
-  var r=document.documentElement,dark=r.getAttribute("data-theme")==="dark"||(!r.getAttribute("data-theme")&&matchMedia("(prefers-color-scheme:dark)").matches);
-  r.setAttribute("data-theme",dark?"light":"dark");store.set("theme",dark?"light":"dark")};
-var t=store.get("theme",null);if(t)document.documentElement.setAttribute("data-theme",t);
+function readView(s,cid){
+  var i=s.chapters.findIndex(function(c){return c.id===cid});if(i<0)i=0;var c=s.chapters[i];
+  document.title=s.title+" "+c.title+" – EpicToon";store.set("last:"+s.id,c.id);
+  var nx=i<s.chapters.length-1?"read:"+s.id+":"+s.chapters[i+1].id:"series:"+s.id;
+  app.innerHTML='<div class="reader">'+(c.images||[]).map(function(u,n){return '<img class="page" loading="lazy" alt="'+esc(c.title)+' page '+(n+1)+'" src="'+esc(u)+'">'}).join("")+'</div><div class="bar"><button data-go="read:'+s.id+':'+(i?s.chapters[i-1].id:c.id)+'"'+(i?'':' disabled')+'>Previous</button><span class="note" style="padding:0">'+esc(c.title)+'</span><button class="primary" data-done="'+s.id+'/'+c.id+'" data-go="'+nx+'">'+(i<s.chapters.length-1?'Next chapter':'Finish')+'</button></div>';
+}
+function page(t,h){document.title=t+" – EpicToon";app.innerHTML='<h2>'+t+'</h2>'+h}
+function about(){page("About","<p>EpicToon is a home for original manhwa and webtoons. Every series here is published by its creator or with the creator's permission.</p><p>Creators who want to publish with us can contact "+esc(CONTACT_EMAIL)+".</p><p>Copyright owners can send removal requests to the same address and we will respond quickly.</p>")}
+function privacy(){page("Privacy Policy","<p>EpicToon has no accounts. Your reading progress and theme choice are saved only in your own browser and are never sent to us.</p><p>If advertising is enabled, third-party vendors including Google use cookies to show ads based on your previous visits. You can opt out of personalised advertising at <a href=\"https://adssettings.google.com\" target=\"_blank\" rel=\"noopener\">Google Ads Settings</a>. Learn more at <a href=\"https://policies.google.com/technologies/partner-sites\" target=\"_blank\" rel=\"noopener\">how Google uses data</a>.</p><p>Questions: "+esc(CONTACT_EMAIL)+".</p>")}
 
-if(CONTENT_URL){fetch(CONTENT_URL).then(function(r){return r.json()}).then(function(j){data=j;render()}).catch(function(){render()})}
-render();
+function route(){
+  var p=location.hash.slice(1).split(":"),r=p[0]||"home",s=find(p[1]);window.scrollTo(0,0);
+  $("back").hidden=(r==="home");
+  if(r==="series"&&s)seriesView(s);else if(r==="read"&&s)readView(s,p[2]);else if(r==="about")about();else if(r==="privacy")privacy();else{$("back").hidden=true;home()}
+  pushAds();
+}
+document.addEventListener("click",function(e){
+  var t=e.target.closest("[data-go],[data-g],[data-home],[data-done]");if(!t)return;
+  if(t.dataset.done){read[t.dataset.done]=1;store.set("read",read)}
+  if(t.dataset.g!==undefined){genre=t.dataset.g;home();return}
+  if(t.hasAttribute("data-home")){q="";$("q").value="";genre="All";if(location.hash)location.hash="";else home();return}
+  if(t.dataset.go)location.hash=t.dataset.go;
+});
+$("q").oninput=function(){q=this.value;if(location.hash&&location.hash!=="#home"){location.hash="";}else{home()}};
+$("q").addEventListener("input",function(){if(!location.hash)home()});
+$("back").onclick=function(){var p=location.hash.slice(1).split(":");location.hash=p[0]==="read"?"series:"+p[1]:""};
+$("theme").onclick=function(){var r=document.documentElement,d=r.getAttribute("data-theme")==="dark"||(!r.getAttribute("data-theme")&&matchMedia("(prefers-color-scheme:dark)").matches);r.setAttribute("data-theme",d?"light":"dark");store.set("theme",d?"light":"dark")};
+var th=store.get("theme",null);if(th)document.documentElement.setAttribute("data-theme",th);
+$("foot").innerHTML='<a href="#about">About</a><a href="#privacy">Privacy</a>'+(SUPPORT_URL?'<a href="'+esc(SUPPORT_URL)+'" target="_blank" rel="noopener">Support us</a>':'')+'<div>© EpicToon</div>';
+window.addEventListener("hashchange",route);
+fetch(CONTENT_URL+"?v="+Date.now()).then(function(r){return r.json()}).then(function(j){data=j;route()}).catch(function(){route()});
+route();
 </script>
 </body>
 </html>
