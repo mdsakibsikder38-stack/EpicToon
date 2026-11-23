@@ -1,11 +1,10 @@
 {
   "series": [
     {
-      "id": "amar-golpo",
-      "title": "আমার গল্প",
-      "author": "আপনার নাম",
-      "color": ["#5b3df5", "#e0457b"],
-      "about": "গল্পের ছোট বর্ণনা।",
+      "id": "Solo Leveling Ragnarok",
+      "title": "Solo Leveling Ragnarok",
+      "author": "Daul",
+      "color": ["#5b3df5", "#e0457b"]
       "chapters": [
         {
           "id": "c1",
