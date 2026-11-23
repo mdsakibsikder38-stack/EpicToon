@@ -19,24 +19,22 @@
        {
       "id": "c2",
       "title": "Chapter 2",
-            "images": [
-    "001.webp",
-    "002.webp",
-    "003.webp",
-    "004.webp",
-    "005.webp",
-    "006.webp",
-    "007.webp",
-    "008.webp",
-    "009.webp",
-    "010.webp",
-    "011.webp",
-    "012.webp",
-    "013.webp",
-    "014.webp",
-    "015.webp",
-    "016.webp"
-  ]
+            "images": ["001.webp",
+    "c2/002.webp",
+    "c2/003.webp",
+    "c2/004.webp",
+    "c2/005.webp",
+    "c2/006.webp",
+    "c2/007.webp",
+    "c2/008.webp",
+    "c2/009.webp",
+    "c2/010.webp",
+    "c2/011.webp",
+    "c2/012.webp",
+    "c2/013.webp",
+    "c2/014.webp",
+    "c2/015.webp",
+    "c2/016.webp","c2/016.webp"]
 }
       ]
     }
