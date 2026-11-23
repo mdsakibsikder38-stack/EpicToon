@@ -15,27 +15,7 @@
             "010.webp.webp","011.webp.webp","012.webp.webp","013.webp.webp","014.webp.webp","015.webp.webp","016.webp.webp","017.webp.webp","018.webp.webp","019.webp.webp","020.webp.webp","021.webp.webp","022.webp.webp",
           "023.webp.webp"]
           
-        } 
-       {
-      "id": "c2",
-      "title": "Chapter 2",
-            "images": ["001.webp",
-    "c2/002.webp",
-    "c2/003.webp",
-    "c2/004.webp",
-    "c2/005.webp",
-    "c2/006.webp",
-    "c2/007.webp",
-    "c2/008.webp",
-    "c2/009.webp",
-    "c2/010.webp",
-    "c2/011.webp",
-    "c2/012.webp",
-    "c2/013.webp",
-    "c2/014.webp",
-    "c2/015.webp",
-    "c2/016.webp","c2/016.webp"]
-}
+        }  
       ]
     }
   ]
