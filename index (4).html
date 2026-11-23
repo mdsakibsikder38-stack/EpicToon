@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EpicToon – Read Original Manhwa Online</title>
+<meta name="description" content="EpicToon: read original manhwa and webtoons online for free.">
+<meta name="theme-color" content="#5b3df5">
+<meta property="og:title" content="EpicToon – Read Original Manhwa Online">
+<meta property="og:image" content="logo.png">
+<link rel="icon" href="logo.png">
+<style>
+:root{--bg:#f3f1f7;--surface:#fff;--ink:#1c1b29;--mute:#6b6a7d;--accent:#5b3df5;--line:#dedbe9}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14131c;--surface:#1e1d29;--ink:#eeedf7;--mute:#9a99ad;--accent:#8f78ff;--line:#2e2c3d}}
+:root[data-theme="dark"]{--bg:#14131c;--surface:#1e1d29;--ink:#eeedf7;--mute:#9a99ad;--accent:#8f78ff;--line:#2e2c3d}
+html{color-scheme:light dark}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Trebuchet MS",system-ui,sans-serif}
+header{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 16px;background:var(--surface);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:8px;cursor:pointer;font:700 1.2rem Georgia,serif}
+.logo{height:32px;width:32px;border-radius:8px}
+#q{flex:1;min-width:150px;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit}
+button{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:8px 14px}
+button.primary,.chip.on{background:var(--accent);border-color:var(--accent);color:#fff}
+button:focus-visible,#q:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+button:disabled{opacity:.4;cursor:default}
+main{max-width:900px;margin:0 auto;padding:16px;min-height:70vh}
+h2{font-family:Georgia,serif;margin:8px 0}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 16px}.chip{border-radius:99px;padding:4px 12px;font-size:.85rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px}
+.card{padding:0;text-align:left;overflow:hidden;border-radius:10px}
+.cover{aspect-ratio:3/4;display:flex;align-items:flex-end;padding:10px;color:#fff;font:700 1.05rem Georgia,serif;text-shadow:0 1px 4px #0008}
+.card .meta{padding:8px 10px;font-size:.82rem;color:var(--mute)}.card b{display:block;color:var(--ink)}
+.detail{display:flex;gap:16px;margin-bottom:16px}.detail .cover{width:140px;flex:none;border-radius:10px}
+.ch{display:flex;justify-content:space-between;align-items:center;width:100%;margin-bottom:8px;text-align:left}
+.ch.done{color:var(--mute)}.chl{display:flex;align-items:center;gap:12px}.thumb{width:48px;height:64px;object-fit:cover;border-radius:6px}
+.reader{background:#000}.page{display:block;width:100%;max-width:760px;margin:0 auto}
+.bar{position:sticky;bottom:0;display:flex;justify-content:space-between;gap:8px;padding:10px 16px;background:var(--surface);border-top:1px solid var(--line)}
+.empty,.note{color:var(--mute);text-align:center;padding:24px 0}
+.sponsor{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin:0 0 16px;padding:12px 14px;border:1px dashed var(--line);border-radius:10px;background:var(--surface);color:var(--ink);text-decoration:none;text-align:center}
+.sponsor img{max-height:90px;max-width:100%;border-radius:6px}
+.sponsor .tag{font-size:.7rem;color:var(--mute);border:1px solid var(--line);border-radius:4px;padding:1px 6px;text-transform:uppercase}
+footer{text-align:center;padding:20px;color:var(--mute);font-size:.9rem;border-top:1px solid var(--line)}
+footer a{color:var(--accent);cursor:pointer;margin:0 8px}
+</style>
+</head>
+<body>
+<header>
+  <button id="back" hidden aria-label="Back">Back</button>
+  <div class="brand" data-home><img class="logo" src="logo.png" alt="" onerror="this.remove()"><span>EpicToon</span></div>
+  <input id="q" type="search" placeholder="Search series or author" aria-label="Search">
+  <button id="theme" aria-label="Toggle dark mode">Theme</button>
+</header>
+<main id="app"></main>
+<footer id="foot"></footer>
+
+<script>
+/* ===== SETTINGS: change these ===== */
+var CONTENT_URL = "content.json";
+var CONTACT_EMAIL = "your-email@example.com";
+var SUPPORT_URL = "";      /* Ko-fi / Patreon link, optional */
+var ADSENSE_CLIENT = "";   /* later: "ca-pub-XXXXXXXXXXXXXXXX" after Google approves you */
+
+var store={get:function(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+var data={series:[]},read=store.get("read",{}),q="",genre="All",app=document.getElementById("app");
+function $(i){return document.getElementById(i)}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function find(id){return data.series.filter(function(s){return s.id===id})[0]}
+function bg(s){if(s.cover)return "background:linear-gradient(0deg,rgba(0,0,0,.6),rgba(0,0,0,0) 55%),url('"+esc(s.cover)+"') center/cover";var c=s.color||["#5b3df5","#e0457b"];return "background:linear-gradient(160deg,"+c[0]+","+c[1]+")"}
+function sponsor(){var p=data.sponsor;if(!p)return"";var ok=/^https?:\/\//i.test(p.link||"");if(!p.image&&!(ok&&p.text))return"";var inner='<span class="tag">Sponsored</span>'+(p.image?'<img src="'+esc(p.image)+'" alt="'+esc(p.text||"Sponsor")+'">':"")+(p.text?'<span>'+esc(p.text)+'</span>':"");return ok?'<a class="sponsor" href="'+esc(p.link)+'" target="_blank" rel="sponsored noopener noreferrer">'+inner+'</a>':'<div class="sponsor">'+inner+'</div>'}
+function loadSponsor(){
+  if(data.sponsor)return;
+  var ex=["jpg","jpeg","png","webp"],i=0;
+  function done(img){
+    fetch("sponsor.txt?v="+Date.now()).then(function(r){return r.ok?r.text():""}).catch(function(){return""}).then(function(t){
+      var l=String(t||"").split(/\r?\n/).map(function(x){return x.trim()}).filter(Boolean);
+      data.sponsor={image:img||"",link:l[0]||"",text:l[1]||""};
+      if(sponsor()&&(!location.hash||location.hash==="#home"))home();
+    });
+  }
+  (function next(){
+    if(i>=ex.length)return done("");
+    var u="sponsor."+ex[i++],im=new Image();
+    im.onload=function(){done(u)};im.onerror=next;im.src=u+"?v="+Date.now();
+  })();
+}
+function ad(){return ADSENSE_CLIENT?'<ins class="adsbygoogle" style="display:block;margin:20px 0" data-ad-client="'+ADSENSE_CLIENT+'" data-ad-format="auto" data-full-width-responsive="true"></ins>':""}
+function pushAds(){if(!ADSENSE_CLIENT)return;try{document.querySelectorAll("ins.adsbygoogle:not([data-done])").forEach(function(n){n.dataset.done=1;(window.adsbygoogle=window.adsbygoogle||[]).push({})})}catch(e){}}
+if(ADSENSE_CLIENT){var sc=document.createElement("script");sc.async=1;sc.crossOrigin="anonymous";sc.src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client="+ADSENSE_CLIENT;document.head.appendChild(sc)}
+
+function matches(s){var t=q.toLowerCase();return(genre==="All"||(s.genres||[]).indexOf(genre)>-1)&&(!t||(s.title+" "+s.author).toLowerCase().indexOf(t)>-1)}
+function card(s){var cs=s.chapters||[],l=cs[cs.length-1];return '<button class="card" data-go="series:'+s.id+'"><div class="cover" style="'+bg(s)+'">'+esc(s.title)+'</div><div class="meta"><b>'+esc(s.author)+'</b>'+(l?esc(l.title):"")+'</div></button>'}
+function gridHtml(){var l=data.series.filter(matches).sort(function(a,b){return(b.updated||"")>(a.updated||"")?1:-1});return l.length?'<div class="grid">'+l.map(card).join("")+'</div>':'<p class="empty">No series found.</p>'}
+function home(){
+  var g=["All"];data.series.forEach(function(s){(s.genres||[]).forEach(function(x){if(g.indexOf(x)<0)g.push(x)})});
+  document.title="EpicToon – Read Original Manhwa Online";
+  app.innerHTML=sponsor()+'<h2>Latest updates</h2><div class="chips">'+g.map(function(x){return '<button class="chip'+(x===genre?' on':'')+'" data-g="'+esc(x)+'">'+esc(x)+'</button>'}).join("")+'</div><div id="grid">'+gridHtml()+'</div>'+ad();
+}
+function seriesView(s){
+  s.chapters=s.chapters||[];
+  document.title=s.title+" – EpicToon";var last=store.get("last:"+s.id,null),first=s.chapters[0];if(last&&!s.chapters.some(function(c){return c.id===last}))last=null;
+  app.innerHTML='<div class="detail"><div class="cover" style="'+bg(s)+'">'+esc(s.title)+'</div><div><h2>'+esc(s.title)+'</h2><p class="note" style="text-align:left;padding:0">'+esc(s.author)+(s.genres?' · '+esc(s.genres.join(", ")):'')+'</p><p>'+esc(s.about||"")+'</p>'+(first?'<button class="primary" data-go="read:'+s.id+':'+(last||first.id)+'">'+(last?'Continue reading':'Start reading')+'</button>':'<p class="note" style="text-align:left;padding:0">No chapters yet.</p>')+'</div></div>'+ad()+
+   s.chapters.slice().reverse().map(function(c){var d=read[s.id+"/"+c.id];return '<button class="ch'+(d?' done':'')+'" data-go="read:'+s.id+':'+c.id+'"><span class="chl">'+(c.thumb?'<img class="thumb" alt="" src="'+esc(c.thumb)+'">':'')+esc(c.title)+'</span><span>'+(d?'Read':(c.images||[]).length+' pages')+'</span></button>'}).join("");
+}
+function readView(s,cid){
+  if(!(s.chapters||[]).length){page("No chapters","<p>This series has no chapters yet.</p>");return}
+  var i=s.chapters.findIndex(function(c){return c.id===cid});if(i<0)i=0;var c=s.chapters[i];
+  document.title=s.title+" "+c.title+" – EpicToon";store.set("last:"+s.id,c.id);
+  var nx=i<s.chapters.length-1?"read:"+s.id+":"+s.chapters[i+1].id:"series:"+s.id;
+  app.innerHTML='<div class="reader">'+(c.images||[]).map(function(u,n){return '<img class="page" loading="lazy" alt="'+esc(c.title)+' page '+(n+1)+'" src="'+esc(u)+'">'}).join("")+'</div><div class="bar"><button data-go="read:'+s.id+':'+(i?s.chapters[i-1].id:c.id)+'"'+(i?'':' disabled')+'>Previous</button><span class="note" style="padding:0">'+esc(c.title)+'</span><button class="primary" data-done="'+s.id+'/'+c.id+'" data-go="'+nx+'">'+(i<s.chapters.length-1?'Next chapter':'Finish')+'</button></div>';
+}
+function page(t,h){document.title=t+" – EpicToon";app.innerHTML='<h2>'+t+'</h2>'+h}
+function about(){page("About","<p>EpicToon is a home for original manhwa and webtoons. Every series here is published by its creator or with the creator's permission.</p><p>Creators who want to publish with us can contact "+esc(CONTACT_EMAIL)+".</p><p>Copyright owners can send removal requests to the same address and we will respond quickly.</p>")}
+function privacy(){page("Privacy Policy","<p>EpicToon has no accounts. Your reading progress and theme choice are saved only in your own browser and are never sent to us.</p><p>If advertising is enabled, third-party vendors including Google use cookies to show ads based on your previous visits. You can opt out of personalised advertising at <a href=\"https://adssettings.google.com\" target=\"_blank\" rel=\"noopener\">Google Ads Settings</a>. Learn more at <a href=\"https://policies.google.com/technologies/partner-sites\" target=\"_blank\" rel=\"noopener\">how Google uses data</a>.</p><p>Questions: "+esc(CONTACT_EMAIL)+".</p>")}
+
+function hp(){return location.hash.slice(1).split(":").map(function(x){try{return decodeURIComponent(x)}catch(e){return x}})}
+function route(){try{route0()}catch(e){app.innerHTML='<div class="empty" style="color:#c00">Error: '+esc(e.message)+'</div>'}}
+function route0(){
+  var p=hp(),r=p[0]||"home",s=find(p[1]);window.scrollTo(0,0);
+  $("back").hidden=(r==="home");
+  if(r==="series"&&s)seriesView(s);else if(r==="read"&&s)readView(s,p[2]);else if(r==="about")about();else if(r==="privacy")privacy();else if(r==="series"||r==="read"){page("Not found","<p>This series was not found. Check that the id in content.json matches.</p>")}else{$("back").hidden=true;home()}
+  pushAds();
+}
+document.addEventListener("click",function(e){
+  var t=e.target.closest("[data-go],[data-g],[data-home],[data-done]");if(!t)return;
+  if(t.dataset.done){read[t.dataset.done]=1;store.set("read",read)}
+  if(t.dataset.g!==undefined){genre=t.dataset.g;home();return}
+  if(t.hasAttribute("data-home")){q="";$("q").value="";genre="All";if(location.hash)location.hash="";else home();return}
+  if(t.dataset.go)location.hash=t.dataset.go;
+});
+$("q").oninput=function(){q=this.value;if(location.hash&&location.hash!=="#home"){location.hash="";}else{home()}};
+$("q").addEventListener("input",function(){if(!location.hash)home()});
+$("back").onclick=function(){var p=hp();location.hash=p[0]==="read"?"series:"+p[1]:""};
+$("theme").onclick=function(){var r=document.documentElement,d=r.getAttribute("data-theme")==="dark"||(!r.getAttribute("data-theme")&&matchMedia("(prefers-color-scheme:dark)").matches);r.setAttribute("data-theme",d?"light":"dark");store.set("theme",d?"light":"dark")};
+var th=store.get("theme",null);if(th)document.documentElement.setAttribute("data-theme",th);
+$("foot").innerHTML='<a href="#about">About</a><a href="#privacy">Privacy</a>'+(SUPPORT_URL?'<a href="'+esc(SUPPORT_URL)+'" target="_blank" rel="noopener">Support us</a>':'')+'<div>© EpicToon · v6</div>';
+window.addEventListener("hashchange",route);
+fetch(CONTENT_URL+"?v="+Date.now()).then(function(r){return r.json()}).then(function(j){data=j;route();loadSponsor()}).catch(function(e){app.innerHTML='<div class="empty" style="color:#c00">content.json could not be loaded ('+esc(e.message)+'). Check the file in GitHub.</div>'});
+route();
+</script>
+</body>
+</html>
