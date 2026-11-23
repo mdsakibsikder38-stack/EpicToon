@@ -1,11 +1,11 @@
 {
   "series": [
     {
-      "id": "amar-golpo",
-      "title": "আমার গল্প",
-      "author": "আপনার নাম",
+      "id": "Solo Leveling Ragnarok",
+      "title": "Solo Leveling Ragnarok",
+      "author": "Daul",
       "color": ["#5b3df5", "#e0457b"],
-      "about": "গল্পের ছোট বর্ণনা।",
+      "about": "After witnessing the death of one of their own, the Absolute Ones — creators of the many universes outside of our own — frantically seek to fill the power void left by their fallen brother. With earth's existence in danger once more as gates spill monsters into our dimension, Sung Suho must answer the call and conquer the shadow dungeon while learning of his father's legendary legacy.",
       "chapters": [
         {
           "id": "c1",
